@@ -16,6 +16,14 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v2
 
+      - name: Set up Node.js
+        uses: actions/setup-node@v2
+        with:
+          node-version: "20"
+
+      - name: Install dependencies
+        run: npm ci
+
       - name: Set up Docker Buildx
         uses: docker/setup-buildx-action@v2
 
@@ -25,5 +33,10 @@ jobs:
       - name: Copy .env.example to .env
         run: cp .env.example .env
 
+      - name: Make scripts executable
+        run: chmod +x ./scripts/*.sh
+
       - name: Run integration script
-        run: npm run test:integration
+        run: |
+          sudo npm install -g npm@latest
+          npm run test:integration
