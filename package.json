@@ -5,6 +5,7 @@
   "main": "index.js",
   "scripts": {
     "test": "vitest",
+    "test:integration": "./scripts/run-integration.sh",
     "build": "rimraf dist && npx tsc",
     "prestart": "npm run build",
     "start": "node dist/index.js",

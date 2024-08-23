@@ -1,9 +1,15 @@
-import { describe, it, expect } from "vitest";
+import { describe, it, expect, beforeAll } from "vitest";
 import request from "supertest";
 import { app } from "..";
+import clearDb from "./helpers/reset-db";
 
 describe("POST /sum", () => {
   it("it should add two numbers", async () => {
+    beforeAll(async () => {
+      console.log("clearing db before running tests");
+      await clearDb();
+    });
+
     const { status, body } = await request(app).post("/sum").send({
       a: 1,
       b: 2,
